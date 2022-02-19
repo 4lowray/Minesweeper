@@ -7,6 +7,7 @@ package minesweeper;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import static minesweeper.Minesweeper.LOG;
 
 /**
  *
@@ -19,9 +20,9 @@ public class Tile extends JButton implements ActionListener{
     
     public Tile(int name)
     {
+        LOG.info("Tile " + name + " created");
         this.setFocusable(false);
         this.addActionListener(this);
-        this.setText("X");
     }
     
     public boolean getBomb()
@@ -37,6 +38,10 @@ public class Tile extends JButton implements ActionListener{
     public void setBombsNear(int i)
     {
         near = i;
+        if (bomb == false)
+        {
+            this.setText(String.valueOf(near));
+        }
     }
 
     @Override

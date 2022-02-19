@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import static minesweeper.Minesweeper.LOG;
 
 /**
  *
@@ -53,7 +54,9 @@ public class Board extends JComponent{
         for (int i = 0; i < 8; i++)
         {
             int ytile = tile / hor;
-            int xtile = tile - (ver * ytile);
+            int xtile = tile - (hor * ytile);
+            //System.out.println("Tile " + tile + " calculation number " + i + " ytile: " + ytile + " x tile: " + xtile);
+            LOG.info("Tile " + tile + " calculation number " + i + " ytile: " + ytile + " x tile: " + xtile);
             switch (i)
             {
                 case 0:
