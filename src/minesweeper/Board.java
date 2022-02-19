@@ -38,7 +38,7 @@ public class Board extends JComponent{
         for (int i = 0; i < bombs; i++)
         {
             Random rng = new Random();
-            tiles.get(rng.nextInt(hor * ver)-1).placeBomb();
+            tiles.get(rng.nextInt(hor * ver)).placeBomb();
         }
         for (int i = 0; i < (hor * ver); i++)
         {
