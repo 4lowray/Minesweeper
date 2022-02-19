@@ -5,9 +5,10 @@
 package minesweeper;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import static minesweeper.Minesweeper.LOG;
 
@@ -28,15 +29,16 @@ public class Board extends JComponent{
         this.setLayout(new GridLayout(ver, hor));
         for (int i = 0; i < (hor * ver); i++)
         {
-            tiles.add(new Tile(i));
+            tiles.add(new Tile(i, this));
             //tiles.add(new JButton(String.valueOf(i)));
             tiles.get(i).setVisible(true);
             this.add(tiles.get(i));
+            
         }
         for (int i = 0; i < bombs; i++)
         {
             Random rng = new Random();
-            tiles.get(rng.nextInt(hor * ver)).placeBomb();
+            tiles.get(rng.nextInt(hor * ver)-1).placeBomb();
         }
         for (int i = 0; i < (hor * ver); i++)
         {
@@ -112,6 +114,55 @@ public class Board extends JComponent{
     public int getMaxSize()
     {
         return hor * ver;
+    }
+    
+    public void revealZeros(int tile)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            int ytile = tile / hor;
+            int xtile = tile - (hor * ytile);
+            //System.out.println("Tile " + tile + " calculation number " + i + " ytile: " + ytile + " x tile: " + xtile);
+            LOG.info("Tile " + tile + " calculation number " + i + " ytile: " + ytile + " x tile: " + xtile);
+            switch (i)
+            {
+                case 0:
+                    ytile += 1;
+                    break;
+                case 1:
+                    ytile -= 1;
+                    break;
+                case 2:
+                    xtile += 1;
+                    break;
+                case 3:
+                    xtile -= 1;
+                    break;
+                case 4: 
+                    ytile += 1;
+                    xtile += 1;
+                    break;
+                case 5:
+                    ytile -= 1;
+                    xtile += 1;
+                    break;
+                case 6:
+                    ytile += 1;
+                    xtile -= 1;
+                    break;
+                case 7:
+                    ytile -= 1;
+                    xtile -= 1;
+                    break;
+            }
+            if ((ytile >= 0) && (ytile < ver) && (xtile >= 0) && (xtile < hor))
+            {
+                if (tiles.get(ytile*hor+xtile).getBomb() == false)
+                {
+                    tiles.get(ytile*hor+xtile).reveal();
+                }
+            }
+        }
     }
     
 }

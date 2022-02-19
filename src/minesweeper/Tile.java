@@ -17,17 +17,28 @@ public class Tile extends JButton implements ActionListener{
     
     private boolean bomb;
     private int near;
+    private Board owner;
+    private int name;
+    private boolean revealed;
     
-    public Tile(int name)
+    public Tile(int name, Board board)
     {
         LOG.info("Tile " + name + " created");
         this.setFocusable(false);
         this.addActionListener(this);
+        owner = board;
+        this.name = name;
+        this.revealed = false;
     }
     
     public boolean getBomb()
     {
         return bomb;
+    }
+    
+    public int getNear()
+    {
+        return near;
     }
     
     public void placeBomb()
@@ -38,21 +49,38 @@ public class Tile extends JButton implements ActionListener{
     public void setBombsNear(int i)
     {
         near = i;
-        if (bomb == false)
-        {
-            this.setText(String.valueOf(near));
-        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (bomb)
+        if (revealed == false)
         {
-            this.setText("BOOM");
+            if (bomb)
+            {
+                this.setText("BOOM");
+            }
+            else
+            {
+                this.setText(String.valueOf(near));
+                if (near == 0)
+                {
+                    owner.revealZeros(name);
+                }
+            }
+            revealed = true;
         }
-        else
+    }
+    
+    public void reveal()
+    {
+        if (revealed == false)
         {
             this.setText(String.valueOf(near));
+            revealed = true;
+            if (near == 0)
+            {
+                owner.revealZeros(name);
+            }
         }
     }
     
