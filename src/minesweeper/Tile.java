@@ -15,19 +15,19 @@ public class Tile extends JButton{
     private boolean bomb;
     private int near;
     
-    public Tile(boolean bomb, int name)
+    public Tile(int name)
     {
         this.setFocusable(false);
-        this.bomb = bomb;
-        if (bomb)
-        {
-            this.setText("bomb");
-        }
     }
     
     public boolean getBomb()
     {
         return bomb;
+    }
+    
+    public void placeBomb()
+    {
+        bomb = true;
     }
 
     public void setBombsNear(int i)

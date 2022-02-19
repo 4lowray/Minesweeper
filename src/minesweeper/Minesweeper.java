@@ -17,7 +17,7 @@ public class Minesweeper {
      */
     public static void main(String[] args) {
         GameFrame frame = new GameFrame("Minesweeper");
-        Board board = new Board(5,5);
+        Board board = new Board(5,5, 3);
         frame.add(board);
         SwingUtilities.updateComponentTreeUI(frame);
     }

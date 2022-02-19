@@ -18,19 +18,24 @@ public class Board extends JComponent{
     private ArrayList<Tile> tiles = new ArrayList();
     private int hor;
     private int ver;
+    private int bombs;
     
-    public Board(int hor, int ver)
+    public Board(int hor, int ver, int bombs)
     {
         this.hor = hor;
         this.ver = ver;
         this.setLayout(new GridLayout(ver, hor));
         for (int i = 0; i < (hor * ver); i++)
         {
-            Random bool = new Random();
-            tiles.add(new Tile(bool.nextBoolean(), i));
+            tiles.add(new Tile(i));
             //tiles.add(new JButton(String.valueOf(i)));
             tiles.get(i).setVisible(true);
             this.add(tiles.get(i));
+        }
+        for (int i = 0; i < bombs; i++)
+        {
+            Random rng = new Random();
+            tiles.get(rng.nextInt(hor * ver)).placeBomb();
         }
         for (int i = 0; i < (hor * ver); i++)
         {
