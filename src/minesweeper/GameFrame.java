@@ -4,7 +4,12 @@
  */
 package minesweeper;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,6 +24,14 @@ public class GameFrame extends JFrame{
         this.setResizable(true);
         this.setDefaultCloseOperation(3);
         this.setVisible(true);
+        Score score = new Score(0);
+        Board board = new Board(5, 8, 3);
+        Info info = new Info();
+        this.setLayout(new BorderLayout());
+        this.add(board, BorderLayout.CENTER);
+        this.add(score, BorderLayout.SOUTH);
+        this.add(info, BorderLayout.NORTH);
+        SwingUtilities.updateComponentTreeUI(this);
     }
-    
+   
 }

@@ -22,13 +22,10 @@ public class Minesweeper {
         SimpleFormatter formatter = new SimpleFormatter();
         handler.setFormatter(formatter);
         LOG.addHandler(handler);
-        
         LOG.info("=============================================================Start Program=============================================================");
+        
         GameFrame frame = new GameFrame("Minesweeper");
-        Board board = new Board(5, 8, 3);
-        frame.add(board);
-        SwingUtilities.updateComponentTreeUI(frame);
     }
     public static final Logger LOG = Logger.getLogger(Minesweeper.class.getName());
-    
+   
 }

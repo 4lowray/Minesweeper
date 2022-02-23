@@ -21,11 +21,13 @@ public class Board extends JComponent{
     private int hor;
     private int ver;
     private int bombs;
+    public static int tilesRemaining;
     
     public Board(int hor, int ver, int bombs)
     {
         this.hor = hor;
         this.ver = ver;
+        this.tilesRemaining = (hor * ver) - bombs;
         this.setLayout(new GridLayout(ver, hor));
         for (int i = 0; i < (hor * ver); i++)
         {
@@ -164,5 +166,30 @@ public class Board extends JComponent{
             }
         }
     }
+   
+    public void setOffBomb()
+    {
+    	Score.INSTANCE.gameOver();
+    	for (int i = 0; i < (hor * ver); i++)
+    	{
+    		tiles.get(i).endGame();
+    	}
+    }
     
+    public void updateRemainingTiles()
+    {
+    	this.tilesRemaining = 0;
+    	for (int i = 0; i < (hor * ver); i++)
+    	{
+    		if ((tiles.get(i).getBomb() == false) && (tiles.get(i).getRevealed() == false))
+    		{
+    			tilesRemaining++;
+    		}
+    	}
+    	Info.INSTANCE.update();
+    	if (tilesRemaining == 0)
+    	{
+    		Score.INSTANCE.gameOver();
+    	}
+    }
 }

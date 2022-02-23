@@ -58,16 +58,20 @@ public class Tile extends JButton implements ActionListener{
             if (bomb)
             {
                 this.setText("BOOM");
+                revealed = true;
+                owner.setOffBomb();
             }
             else
             {
                 this.setText(String.valueOf(near));
+                Score.INSTANCE.addScore(10);
                 if (near == 0)
                 {
                     owner.revealZeros(name);
                 }
+                revealed = true;
+                owner.updateRemainingTiles();
             }
-            revealed = true;
         }
     }
     
@@ -77,11 +81,30 @@ public class Tile extends JButton implements ActionListener{
         {
             this.setText(String.valueOf(near));
             revealed = true;
+            Score.INSTANCE.addScore(10);
             if (near == 0)
             {
                 owner.revealZeros(name);
             }
+            owner.updateRemainingTiles();
         }
     }
+    
+    public void endGame()
+    {
+    	if ((bomb) && (revealed == false))
+    	{
+    		this.setText("bomb");
+    	}
+    	else if (!bomb)
+    	{
+    		this.setText(String.valueOf(near));
+    	}
+    }
+
+	public boolean getRevealed() {
+		// TODO Auto-generated method stub
+		return revealed;
+	}
     
 }
